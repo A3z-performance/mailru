@@ -1,11 +1,16 @@
 package utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class MailUtils {
     public static boolean checkMailMsg(String msg, String containerMsg){
-        if(msg.length() <= 100){
-            return msg.equals(containerMsg);
-        } else {
-            return msg.substring(0, 100).equals(containerMsg);
-        }
+        return msg.contains(containerMsg);
+    }
+
+    public static String currentDate(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
     }
 }

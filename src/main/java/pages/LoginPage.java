@@ -2,6 +2,7 @@ package pages;
 
 import elements.Button;
 import elements.TextEdit;
+import fielddecorators.FieldDecorator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,7 +29,7 @@ public class LoginPage {
     private  WebElement authLink;
 
     public LoginPage(WebDriver driver){
-        PageFactory.initElements(driver, LoginPage.class);
+        PageFactory.initElements(new FieldDecorator(driver), this);
         this.driver = driver;
     }
 

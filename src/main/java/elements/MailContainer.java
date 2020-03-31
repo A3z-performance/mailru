@@ -4,11 +4,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MailUtils;
 
 import java.util.List;
 
 public class MailContainer {
+    WebDriverWait driverWait;
+
+    @FindBy(xpath = "//div[@class=\"scrollable__container\"]")
+    private WebElement container;
 
     @FindBy(xpath = "//div[@class=\"llc__content\"]")
     private List<WebElement> mailList;
@@ -24,6 +30,8 @@ public class MailContainer {
 
     public MailContainer(WebDriver driver){
         PageFactory.initElements(driver, this);
+        driverWait = new WebDriverWait(driver, 5);
+        driverWait.until(ExpectedConditions.visibilityOf(container));
     }
 
     public MailObject getMail(String sendTo, String subject, String mailText) {
@@ -44,9 +52,12 @@ public class MailContainer {
 
     public int findMail(String sendTo, String subject, String mailText){
         for (int i = 0; i < mailList.size(); i++) {
-            if (sendToList.get(i).getText().equals(sendTo)
-                    && subjectList.get(i).getText().equals(subject)
-                    && MailUtils.checkMailMsg(mailTextList.get(i).getText(), mailText)
+            String sendToStr = sendToList.get(i).getText();
+            String subjectStr = subjectList.get(i).getText();
+            String mailTextStr = mailTextList.get(i).getText();
+            if (sendToStr.equals(sendTo)
+                    && (subjectStr.equals(subject) || subjectStr.equals("Self: " + subject))
+                    && MailUtils.checkMailMsg(mailTextStr, mailText)
             )
                 return i;
         }

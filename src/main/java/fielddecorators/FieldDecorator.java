@@ -1,3 +1,5 @@
+package fielddecorators;
+
 import java.lang.reflect.Field;
 
 import org.openqa.selenium.SearchContext;
@@ -28,7 +30,7 @@ public class FieldDecorator extends DefaultFieldDecorator {
             // элемент
             return createElement(loader, locator, decoratableClass);
         }
-        return null;
+        return super.decorate(loader, field);
     }
 
     /**

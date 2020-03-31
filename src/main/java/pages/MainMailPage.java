@@ -3,6 +3,7 @@ package pages;
 import elements.Button;
 import elements.MailContainer;
 import elements.MailObject;
+import fielddecorators.FieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -31,19 +32,19 @@ public class MainMailPage {
     private Button createMsgBtn;
 
     // кнопка, при нажатии которой в главном контейнере показывается список входящих писем
-    @FindBy(xpath = "//a[@title=\"Входящие\"]")
+    @FindBy(xpath = "//a[@href=\"/inbox/\"]")
     private Button inboxBtn;
 
     // кнопка, при нажатии которой в главном контейнере показывается список черновиков
-    @FindBy(xpath = "//a[@title=\"Черновики\"]")
+    @FindBy(xpath = "//a[@href=\"/drafts/\"]")
     private Button draftBtn;
 
     // кнопка, при нажатии которой в главном контейнере показывается список отправленных писем
-    @FindBy(xpath = "//a[@title=\"Отправленные\"]")
+    @FindBy(xpath = "//a[@href=\"/sent/\"]")
     private Button sentBtn;
 
     // кнопка, при нажатии которой в главном контейнере показывается список писем корзины
-    @FindBy(xpath = "//a[@title=\"Корзина\"]")
+    @FindBy(xpath = "//a[@href=\"/trash/\"]")
     private Button basketBtn;
 
     //контенер, содержащий списки(писем, черновиков и тд)
@@ -55,7 +56,7 @@ public class MainMailPage {
 
 
     public MainMailPage(WebDriver driver) {
-        PageFactory.initElements(driver, MainMailPage.class);
+        PageFactory.initElements(new FieldDecorator(driver), this);
         this.driver = driver;
     }
 

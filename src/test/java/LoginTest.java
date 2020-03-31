@@ -2,9 +2,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
+import utils.MailUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,10 +12,10 @@ public class LoginTest {
     private static String url = "https://mail.ru/";
     private String mail = "perftest";
     private String mailbox = "@list.ru";
-    private String password = "";
+    private String password = "perf2020Tes";
     private String reciever = "perftest@list.ru";
     private String subject = "Hello test!";
-    private String mailMessage = "It's a test message";
+    private static String mailMessage = MailUtils.currentDate();
 
     private static WebDriver driver;
     private static WebDriverWait wait;
@@ -31,12 +31,13 @@ public class LoginTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(9, TimeUnit.SECONDS);
         driver.get(url);
     }
 
     @Test
-    public void loginTest() throws InterruptedException {
+    public void loginTest(){
 
         String testMail = mail + mailbox;
 
@@ -83,16 +84,16 @@ public class LoginTest {
         /**
          * Проверка корректности заполнения черновика
          */
-        Assert.assertEquals(filledMailPage.getReciever(), reciever);
-        Assert.assertEquals(filledMailPage.getSubject(), subject);
-        Assert.assertEquals(filledMailPage.getTextMessage(), mailMessage);
+        Assert.assertEquals(reciever, filledMailPage.getReciever());
+        Assert.assertEquals(subject, filledMailPage.getSubject());
+        Assert.assertEquals(mailMessage, filledMailPage.getTextMessage());
 
         /**
          * Отправка письма и проверка окна успешной отправки письма
          */
         successPage = filledMailPage.SendMessage();
-        Assert.assertEquals(successPage.getSuccessMsg(), "Письмо отправлено");
-        Assert.assertEquals(successPage.getRecieverMail(), reciever);
+        Assert.assertEquals("Письмо отправлено", successPage.getSuccessMsg());
+        Assert.assertEquals(reciever, successPage.getRecieverMail());
         successPage.closeWindow();
 
         /**
@@ -110,7 +111,11 @@ public class LoginTest {
          * Выход из учетки
          */
         loginPage = mailPage.logout();
-        Thread.sleep(10000);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

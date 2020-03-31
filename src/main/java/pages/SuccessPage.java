@@ -1,6 +1,7 @@
 package pages;
 
 import elements.Button;
+import fielddecorators.FieldDecorator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,11 +20,11 @@ public class SuccessPage {
     @FindBy(xpath = "//div[@class=\"layer-sent-page__recipients-container\"]/span/span[2]")
     private WebElement reciever;
 
-    @FindBy(xpath = "span[@class=\"button2__ico\"]")
+    @FindBy(xpath = "//span[@title=\"Закрыть\"]")
     private Button closeBtn;
 
     public SuccessPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(new FieldDecorator(driver), this);
     }
 
     public String getSuccessMsg(){
@@ -32,16 +33,20 @@ public class SuccessPage {
 
     public String getRecieverMail(){
         String line = reciever.getText();
-        String pattern = "<(.+)>";
+        if(line.contains("<")){
+            String pattern = "<(.+)>";
 
-        Pattern r = Pattern.compile(pattern);
+            Pattern r = Pattern.compile(pattern);
 
-        Matcher m = r.matcher(line);
-        if (m.find( )) {
-            return m.group(1);
-        }else {
-            return "NO MATCH";
+            Matcher m = r.matcher(line);
+            if (m.find( )) {
+                return m.group(1);
+            }else {
+                return "NO MATCH";
+            }
         }
+
+        return line;
     }
 
     public void closeWindow(){

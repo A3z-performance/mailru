@@ -1,6 +1,7 @@
 package pages;
 
 import elements.TextEdit;
+import fielddecorators.FieldDecorator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,7 +24,7 @@ public class TypeMailPage extends MailFrame{
 
 
     public TypeMailPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(new FieldDecorator(driver), this);
         this.driver = driver;
     }
 
