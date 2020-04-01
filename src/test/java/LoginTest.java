@@ -9,11 +9,13 @@ import utils.MailUtils;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.Assert.assertTrue;
+
 public class LoginTest {
     private static String url = "https://mail.ru/";
     private String mail = "perftest";
     private String mailbox = "@list.ru";
-    private String password = "perf2020Tes";
+    private String password = "";
     private String reciever = "perftest@list.ru";
     private String subject = "Hello test!";
     private static String mailMessage;
@@ -68,7 +70,7 @@ public class LoginTest {
     public void logoutTest(){
         loginTest();
         loginPage = mailPage.logout();
-        Assert.assertTrue(loginPage.getAuthLink().isDisplayed());
+        assertTrue(loginPage.getAuthLink().isDisplayed());
     }
 
     @Test
@@ -88,7 +90,7 @@ public class LoginTest {
         /**
          * Проверка отображение созданного письма в списке черновиков
          */
-        Assert.assertTrue(mailPage.containsMail(reciever, subject, mailMessage));
+        assertTrue(mailPage.containsMail(reciever, subject, mailMessage));
 
         /**
          * Открытие черновика
@@ -131,7 +133,7 @@ public class LoginTest {
          * Проверка нахождения письма в отправленных
          */
         mailPage.openSent();
-        Assert.assertTrue(mailPage.containsMail(reciever, subject, mailMessage));
+        assertTrue(mailPage.containsMail(reciever, subject, mailMessage));
     }
 
 
@@ -173,7 +175,7 @@ public class LoginTest {
         /**
          * Проверка отображение созданного письма в списке черновиков
          */
-        Assert.assertTrue(mailPage.containsMail(reciever, subject, mailMessage));
+        assertTrue(mailPage.containsMail(reciever, subject, mailMessage));
 
         /**
          * Открытие черновика
@@ -204,7 +206,7 @@ public class LoginTest {
          * Проверка нахождения письма в отправленных
          */
         mailPage.openSent();
-        Assert.assertTrue(mailPage.containsMail(reciever, subject, mailMessage));
+        assertTrue(mailPage.containsMail(reciever, subject, mailMessage));
 
         /**
          * Выход из учетки
