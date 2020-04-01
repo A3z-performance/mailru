@@ -59,8 +59,8 @@ public class LoginPage {
         return new MainMailPage(driver);
     }
 
-    public boolean authLinkIsDisplayed(){
-        return authLink.isDisplayed();
+    public WebElement getAuthLink(){
+        return authLink;
     }
 
 }
