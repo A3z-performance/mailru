@@ -19,7 +19,7 @@ public class TypeMailPage extends MailFrame{
     private TextEdit subjectInputField;
 
     //Поле ввода текста сообщения
-    @FindBy(xpath = "//div[@role=\"textbox\"]/div[1]")
+    @FindBy(xpath = "//div[@role=\"textbox\"]")
     private TextEdit mailInputField;
 
 

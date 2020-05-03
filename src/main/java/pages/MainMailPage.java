@@ -28,7 +28,7 @@ public class MainMailPage {
     private Button logoutBtn;
 
     // кнопка, при нажатии которой появляется форма для написания нового письма
-    @FindBy(xpath = "//span[@title=\"Написать письмо\"]")
+    @FindBy(xpath = "//span[contains(text(), \"Написать письмо\")]")
     private Button createMsgBtn;
 
     // кнопка, при нажатии которой в главном контейнере показывается список входящих писем

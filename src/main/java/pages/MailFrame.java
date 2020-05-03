@@ -28,7 +28,6 @@ public abstract class MailFrame {
     public SuccessPage SendMessage() {
         sendBtn.click();
         return new SuccessPage(driver);
-        //TODO: открывается окно с подтверждением отправки письма, обработать его
     }
 
     private void closePage(){
